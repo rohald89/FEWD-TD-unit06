@@ -84,10 +84,6 @@ function checkWin() {
     header.textContent = "You Lost!";
     overlay.style.visibility = "visible";
     startGame.textContent = "Try again";
-    const h3 = document.createElement("h3");
-    h3.innerHTML = `The correct phrase was:   
-    <span> ${phraseAsArray.join("")}</span>.`;
-    overlay.appendChild(h3);
   }
 }
 
@@ -97,8 +93,24 @@ function checkWin() {
 
 // Add a button to the “success” and “failure” screens that reset the game. You’ll have to recreate the buttons in the keyboard, generate a new random phrase, and set the number of misses to zero.
 
+function resetGame() {
+  missed = 0;
+  const keyboard = document.querySelectorAll("button");
+  const deletePhrase = phraseUl.children;
+  for (let i = 0; i < keyboard.length; i++) {
+    keyboard[i].className = "";
+    keyboard[i].disabled = false;
+  }
+  for (let j = 0; j < deletePhrase.length; i++) {
+    console.log(deletePhrase);
+    deletePhrase[j].remove();
+    console.log(deletePhrase[i]);
+  }
+}
+
 startGame.addEventListener("click", () => {
   overlay.style.visibility = "hidden";
+  resetGame();
   const newPhrase = getRandomPhraseAsArray(phrases);
   addPhraseToDisplay(newPhrase);
 });
