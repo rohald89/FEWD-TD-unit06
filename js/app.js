@@ -2,14 +2,11 @@ const qwerty = document.getElementById("qwerty");
 const phrase = document.getElementById("phrase");
 let startGame = document.querySelector(".btn__reset");
 const overlay = document.getElementById("overlay");
-let missed = 0;
 const header = document.querySelector("#overlay .title");
 const phraseUl = document.querySelector("#phrase ul");
 const livesLi = document.querySelectorAll("#scoreboard ol li");
 const triesImg = document.querySelectorAll(".tries img");
-// startGame.addEventListener("click", () => {
-//   overlay.style.visibility = "hidden";
-// });
+let missed = 0;
 
 const phrases = [
   "it is not a bug it is an undocumented feature",
@@ -50,23 +47,6 @@ function checkLetter(clickedLetter) {
   return matchingLetter;
 }
 
-qwerty.addEventListener("click", (e) => {
-  if (e.target.tagName === "BUTTON") {
-    const clickedButton = e.target;
-    clickedButton.className = "chosen";
-    clickedButton.disabled = "true";
-    const letterFound = checkLetter(clickedButton.textContent);
-    if (letterFound === null) {
-      const triesLi = document.querySelectorAll(".tries");
-      const loseHeart = document.querySelectorAll(".tries img");
-      missed += 1;
-      loseHeart[0].src = "images/lostHeart.png";
-      triesLi[0].className = "";
-    }
-    checkWin();
-  }
-});
-
 function checkWin() {
   const numberOfVisibleLetters = document.getElementsByClassName("show");
   const numberOfLetters = document.getElementsByClassName("letter");
@@ -83,10 +63,6 @@ function checkWin() {
     startGame.textContent = "Try again";
   }
 }
-
-//  =======================
-//  ======= EXCEEDS =======
-//  =======================
 
 function resetGame() {
   missed = 0;
@@ -107,4 +83,21 @@ startGame.addEventListener("click", () => {
   resetGame();
   const newPhrase = getRandomPhraseAsArray(phrases);
   addPhraseToDisplay(newPhrase);
+});
+
+qwerty.addEventListener("click", (e) => {
+  if (e.target.tagName === "BUTTON") {
+    const clickedButton = e.target;
+    clickedButton.className = "chosen";
+    clickedButton.disabled = "true";
+    const letterFound = checkLetter(clickedButton.textContent);
+    if (letterFound === null) {
+      const triesLi = document.querySelectorAll(".tries");
+      const loseHeart = document.querySelectorAll(".tries img");
+      missed += 1;
+      loseHeart[0].src = "images/lostHeart.png";
+      triesLi[0].className = "";
+    }
+    checkWin();
+  }
 });
