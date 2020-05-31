@@ -5,6 +5,8 @@ const overlay = document.getElementById("overlay");
 let missed = 0;
 const header = document.querySelector("#overlay .title");
 const phraseUl = document.querySelector("#phrase ul");
+const livesLi = document.querySelectorAll("#scoreboard ol li");
+const triesImg = document.querySelectorAll(".tries img");
 // startGame.addEventListener("click", () => {
 //   overlay.style.visibility = "hidden";
 // });
@@ -55,16 +57,11 @@ qwerty.addEventListener("click", (e) => {
     clickedButton.disabled = "true";
     const letterFound = checkLetter(clickedButton.textContent);
     if (letterFound === null) {
-      const ol = document.querySelector("#scoreboard ol");
-      const li = ol.firstElementChild;
-      li.remove();
-      const lis = document.createElement("li");
-      const lostHeart = document.createElement("img");
-      lostHeart.src = "images/lostHeart.png";
-      lostHeart.className = "lostHeart";
-      lis.append(lostHeart);
-      ol.append(lis);
+      const triesLi = document.querySelectorAll(".tries");
+      const loseHeart = document.querySelectorAll(".tries img");
       missed += 1;
+      loseHeart[0].src = "images/lostHeart.png";
+      triesLi[0].className = "";
     }
     checkWin();
   }
@@ -91,20 +88,17 @@ function checkWin() {
 //  ======= EXCEEDS =======
 //  =======================
 
-// Add a button to the “success” and “failure” screens that reset the game. You’ll have to recreate the buttons in the keyboard, generate a new random phrase, and set the number of misses to zero.
-
 function resetGame() {
   missed = 0;
   const keyboard = document.querySelectorAll("button");
-  const deletePhrase = phraseUl.children;
   for (let i = 0; i < keyboard.length; i++) {
     keyboard[i].className = "";
     keyboard[i].disabled = false;
   }
-  for (let j = 0; j < deletePhrase.length; i++) {
-    console.log(deletePhrase);
-    deletePhrase[j].remove();
-    console.log(deletePhrase[i]);
+  phraseUl.textContent = "";
+  for (let i = 0; i < livesLi.length; i++) {
+    livesLi[i].className = "tries";
+    triesImg[i].src = "images/liveHeart.png";
   }
 }
 

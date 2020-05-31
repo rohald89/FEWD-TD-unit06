@@ -71,17 +71,8 @@ button {
   padding: 10px;
 }
 
-.lostHeart {
-  height: 35px;
-  width: 30px;
-}
-
-h3 {
-  font-size: 1.1rem;
-}
-
-span {
-  font-size: 1.4rem;
+#phrase ul li {
+  margin: 10px 2px;
 }
 
 /* Title */
