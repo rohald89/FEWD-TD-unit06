@@ -3,10 +3,11 @@ const phrase = document.getElementById("phrase");
 let startGame = document.querySelector(".btn__reset");
 const overlay = document.getElementById("overlay");
 let missed = 0;
-
-startGame.addEventListener("click", () => {
-  overlay.style.visibility = "hidden";
-});
+const header = document.querySelector("#overlay .title");
+const phraseUl = document.querySelector("#phrase ul");
+// startGame.addEventListener("click", () => {
+//   overlay.style.visibility = "hidden";
+// });
 
 const phrases = [
   "it is not a bug it is an undocumented feature",
@@ -22,13 +23,11 @@ function getRandomPhraseAsArray(arr) {
   return phraseAsArray;
 }
 
-const phraseAsArray = getRandomPhraseAsArray(phrases);
-
 function addPhraseToDisplay(arr) {
   for (let i = 0; i < arr.length; i++) {
     let letter = document.createElement("li");
     letter.textContent = arr[i];
-    document.querySelector("#phrase ul").appendChild(letter);
+    phraseUl.appendChild(letter);
     if (arr[i] != " ") {
       letter.className = "letter";
     } else {
@@ -36,8 +35,6 @@ function addPhraseToDisplay(arr) {
     }
   }
 }
-console.log(phraseAsArray);
-addPhraseToDisplay(phraseAsArray);
 
 function checkLetter(clickedLetter) {
   const letters = document.querySelectorAll(".letter");
@@ -76,12 +73,21 @@ qwerty.addEventListener("click", (e) => {
 function checkWin() {
   const numberOfVisibleLetters = document.getElementsByClassName("show");
   const numberOfLetters = document.getElementsByClassName("letter");
+
   if (numberOfLetters.length == numberOfVisibleLetters.length) {
     overlay.className = "win";
+    header.textContent = "You Win!";
     overlay.style.visibility = "visible";
+    startGame.textContent = "Play Again";
   } else if (missed >= 5) {
     overlay.className = "lose";
+    header.textContent = "You Lost!";
     overlay.style.visibility = "visible";
+    startGame.textContent = "Try again";
+    const h3 = document.createElement("h3");
+    h3.innerHTML = `The correct phrase was:   
+    <span> ${phraseAsArray.join("")}</span>.`;
+    overlay.appendChild(h3);
   }
 }
 
@@ -89,6 +95,10 @@ function checkWin() {
 //  ======= EXCEEDS =======
 //  =======================
 
-// Create CSS transitions for each letter in the phrase display as they are revealed.
-
 // Add a button to the “success” and “failure” screens that reset the game. You’ll have to recreate the buttons in the keyboard, generate a new random phrase, and set the number of misses to zero.
+
+startGame.addEventListener("click", () => {
+  overlay.style.visibility = "hidden";
+  const newPhrase = getRandomPhraseAsArray(phrases);
+  addPhraseToDisplay(newPhrase);
+});

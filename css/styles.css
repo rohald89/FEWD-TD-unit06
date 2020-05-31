@@ -76,6 +76,14 @@ button {
   width: 30px;
 }
 
+h3 {
+  font-size: 1.1rem;
+}
+
+span {
+  font-size: 1.4rem;
+}
+
 /* Title */
 
 .header {
