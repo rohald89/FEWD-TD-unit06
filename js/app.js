@@ -47,7 +47,6 @@ function getRandomPhraseAsArray(arr) {
 // const phraseArray = getRandomPhraseAsArray(phrases);
 //addPhrasetoDisplay(phraseArray);
 const phraseAsArray = getRandomPhraseAsArray(phrases);
-console.log(phraseAsArray);
 
 function addPhraseToDisplay(arr) {
   // do stuff any arr that is passed in, and add to `#phrase ul`
@@ -60,11 +59,24 @@ function addPhraseToDisplay(arr) {
     document.querySelector("#phrase ul").appendChild(letter);
     if (arr[i] != " ") {
       letter.className = "letter";
+    } else {
+      letter.className = "space";
     }
   }
 }
 
 addPhraseToDisplay(phraseAsArray);
+
+function checkLetter(clickedLetter) {
+  const letters = document.querySelectorAll(".letter");
+  for (i = 0; i < letters.length; i++) {
+    const letter = letters[i];
+    if (clickedLetter == letter.textContent) {
+      letter.className = "letter show";
+    } else {
+    }
+  }
+}
 
 // Create a checkLetter function.
 // The checkLetter function will be used inside of the event listener you’ll write in the next step.
@@ -77,6 +89,14 @@ addPhraseToDisplay(phraseAsArray);
 
 // If a match wasn’t found, the function should return null.
 
+qwerty.addEventListener("click", (e) => {
+  if (e.target.tagName === "BUTTON") {
+    const clickedButton = e.target;
+    clickedButton.className = "chosen";
+    clickedButton.disabled = "true";
+    const letterFound = checkLetter(clickedButton.textContent);
+  }
+});
 // Add an event listener to the keyboard.
 // Use event delegation to listen only to button events from the keyboard. When a player chooses a letter, add the “chosen” class to that button so the same letter can’t be chosen twice. Note that button elements have an attribute you can set called “disabled” that when set to true will not respond to user clicks. See the MDN documentation for more details.
 // Pass the button to the checkLetter function, and store the letter returned inside of a variable called letterFound. At this point, you can open the index.html file, click any of the letters on the keyboard, and start to see the letters appear in the phrase.
