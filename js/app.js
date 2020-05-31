@@ -76,8 +76,6 @@ qwerty.addEventListener("click", (e) => {
 function checkWin() {
   const numberOfVisibleLetters = document.getElementsByClassName("show");
   const numberOfLetters = document.getElementsByClassName("letter");
-  console.log(numberOfVisibleLetters);
-  console.log(numberOfLetters);
   if (numberOfLetters.length == numberOfVisibleLetters.length) {
     overlay.className = "win";
     overlay.style.visibility = "visible";
@@ -86,9 +84,6 @@ function checkWin() {
     overlay.style.visibility = "visible";
   }
 }
-
-// Create a checkWin function.
-// Each time the player guesses a letter, this function will check whether the game has been won or lost. At the very end of the keyboard event listener, you’ll run this function to check if the number of letters with class “show” is equal to the number of letters with class “letters”. If they’re equal, show the overlay screen with the “win” class and appropriate text. Otherwise, if the number of misses is equal to or greater than 5, show the overlay screen with the “lose” class and appropriate text.
 
 //  =======================
 //  ======= EXCEEDS =======
