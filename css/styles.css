@@ -1,5 +1,5 @@
 /* Main styles */
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700&Roboto:300");
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&Roboto:300');
 
 /* Variables */
 
@@ -39,7 +39,7 @@ ul {
 h2 {
   margin: 0;
   text-transform: uppercase;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: var(--font-size-large);
   margin: 0;
 }
@@ -55,6 +55,7 @@ button {
   -webkit-transition: var(--transition);
   -o-transition: var(--transition);
   transition: var(--transition);
+  cursor: pointer;
 }
 
 .main-container {
@@ -126,6 +127,7 @@ button {
   background: #ffffff;
   border-radius: 5px;
   font-size: var(--font-size-medium);
+  cursor: pointer;
 }
 
 /* Overlay */

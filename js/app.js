@@ -1,6 +1,5 @@
 const qwerty = document.getElementById("qwerty");
-const phrase = document.getElementById("phrase");
-let startGame = document.querySelector(".btn__reset");
+const startGame = document.querySelector(".btn__reset");
 const overlay = document.getElementById("overlay");
 const header = document.querySelector("#overlay .title");
 const phraseUl = document.querySelector("#phrase ul");
@@ -16,42 +15,36 @@ const phrases = [
   "first solve the problem then write the code",
 ];
 
-function getRandomPhraseAsArray(arr) {
+const getRandomPhraseAsArray = arr => {
   const randomPhrase = arr[Math.floor(Math.random() * arr.length)];
-  const phraseAsArray = Array.from(randomPhrase);
-  return phraseAsArray;
+  return Array.from(randomPhrase);
 }
 
-function addPhraseToDisplay(arr) {
-  for (let i = 0; i < arr.length; i++) {
-    let letter = document.createElement("li");
-    letter.textContent = arr[i];
-    phraseUl.appendChild(letter);
-    if (arr[i] != " ") {
-      letter.className = "letter";
-    } else {
-      letter.className = "space";
-    }
-  }
+const addPhraseToDisplay = arr => {
+  arr.forEach(letter => {
+    const li = document.createElement('li');
+    li.textContent = letter;
+    phraseUl.appendChild(li);
+    letter !== " " ? li.className = "letter" : li.className = "space";
+  });
 }
 
-function checkLetter(clickedLetter) {
-  const letters = document.querySelectorAll(".letter");
+const checkLetter = clickedLetter => {
   let matchingLetter = null;
-  for (i = 0; i < letters.length; i++) {
-    if (clickedLetter == letters[i].textContent) {
-      letters[i].className = "letter show";
-      matchingLetter = letters[i].textContent;
+  document.querySelectorAll(".letter").forEach(letter => {
+    if(clickedLetter === letter.textContent) {
+      letter.classList.add('show');
+      matchingLetter = letter.textContent;
     }
-  }
+  });
   return matchingLetter;
 }
 
-function checkWin() {
-  const numberOfVisibleLetters = document.getElementsByClassName("show");
-  const numberOfLetters = document.getElementsByClassName("letter");
+const checkWin = () => {
+  const numberOfVisibleLetters = document.getElementsByClassName("show").length;
+  const numberOfLetters = document.getElementsByClassName("letter").length;
 
-  if (numberOfLetters.length == numberOfVisibleLetters.length) {
+  if (numberOfLetters == numberOfVisibleLetters) {
     overlay.className = "win";
     header.textContent = "You Win!";
     overlay.style.visibility = "visible";
@@ -64,25 +57,27 @@ function checkWin() {
   }
 }
 
-function resetGame() {
+const resetGame = () => {
   missed = 0;
-  const keyboard = document.querySelectorAll("button");
-  for (let i = 0; i < keyboard.length; i++) {
-    keyboard[i].className = "";
-    keyboard[i].disabled = false;
-  }
+
+  document.querySelectorAll("button").forEach(key => {
+    key.className = '';
+    key.disabled = false;
+  });
+
   phraseUl.textContent = "";
-  for (let i = 0; i < livesLi.length; i++) {
-    livesLi[i].className = "tries";
-    triesImg[i].src = "images/liveHeart.png";
-  }
+
+  livesLi.forEach((life, i) => {
+    life.className = 'tries';
+    triesImg[i].src = 'images/liveHeart.png';
+  });
+
+  addPhraseToDisplay(getRandomPhraseAsArray(phrases));
 }
 
 startGame.addEventListener("click", () => {
   overlay.style.visibility = "hidden";
   resetGame();
-  const newPhrase = getRandomPhraseAsArray(phrases);
-  addPhraseToDisplay(newPhrase);
 });
 
 qwerty.addEventListener("click", (e) => {
@@ -92,11 +87,8 @@ qwerty.addEventListener("click", (e) => {
     clickedButton.disabled = "true";
     const letterFound = checkLetter(clickedButton.textContent);
     if (letterFound === null) {
-      const triesLi = document.querySelectorAll(".tries");
-      const loseHeart = document.querySelectorAll(".tries img");
+      triesImg[missed].src = "images/lostHeart.png";
       missed += 1;
-      loseHeart[0].src = "images/lostHeart.png";
-      triesLi[0].className = "";
     }
     checkWin();
   }
